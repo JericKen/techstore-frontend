@@ -40,26 +40,12 @@ export default function Home() {
     }
 
     return (
-        // <div style={{ padding: "40px" }}>
-
-        //     <h1>🛒 TechStore</h1>
-
-        //     {products.length === 0 && (
-        //         <p>No products found.</p>
-        //     )}
-
-        //     {products.map(product => (
-        //         <ProductCard
-        //             key={product.id}
-        //             product={product}
-        //         />
-        //     ))}
-
-        // </div>
 
         <div className="container">
 
             <Navbar />
+
+            <h1>🛒 TechStore - Version 2 🚀</h1>
 
             <div className="product-grid">
 
