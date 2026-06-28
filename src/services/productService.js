@@ -1,6 +1,6 @@
 import api from "../api/axios";
 
-const BASE_URL = "http://localhost:1337";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export async function getProducts() {
     const response = await api.get("/products?populate=*");
