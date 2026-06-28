@@ -14,11 +14,8 @@ export default function Home() {
         async function loadProducts() {
 
             try {
-
                 const data = await getProducts();
-
                 setProducts(data);
-
             } catch (error) {
 
                 console.error(error);
@@ -44,8 +41,6 @@ export default function Home() {
         <div className="container">
 
             <Navbar />
-
-            <h1>🛒 TechStore - Version 2 🚀</h1>
 
             <div className="product-grid">
 
