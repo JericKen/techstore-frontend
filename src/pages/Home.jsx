@@ -8,14 +8,23 @@ export default function Home() {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState("");
+
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState(1);
 
     useEffect(() => {
 
         async function loadProducts() {
 
             try {
-                const data = await getProducts();
-                setProducts(data);
+
+                const data = await getProducts(page, 4, search);
+
+                setProducts(data.products);
+
+                setPageCount(data.pagination.pageCount);
+
             } catch (error) {
 
                 console.error(error);
@@ -30,7 +39,11 @@ export default function Home() {
 
         loadProducts();
 
-    }, []);
+    }, [page, search]);
+
+    useEffect(() => {
+        setPage(1);
+    }, [search]);
 
     if (loading) {
         return <h2>Loading...</h2>;
@@ -41,6 +54,14 @@ export default function Home() {
         <div className="container">
 
             <Navbar />
+
+            <input
+                type="text"
+                placeholder="Search product..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="search-input"
+            />
 
             <div className="product-grid">
 
@@ -54,6 +75,30 @@ export default function Home() {
                         product={product}
                     />
                 ))}
+
+            </div>
+
+            <div className="pagination">
+
+                <button
+                    onClick={() => setPage(page - 1)}
+                    disabled={page === 1}
+                >
+                    Previous
+                </button>
+
+                <span>
+
+                    Page {page} of {pageCount}
+
+                </span>
+
+                <button
+                    onClick={() => setPage(page + 1)}
+                    disabled={page === pageCount}
+                >
+                    Next
+                </button>
 
             </div>
 

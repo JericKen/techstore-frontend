@@ -2,21 +2,37 @@ import api from "../api/axios";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-export async function getProducts() {
-    const response = await api.get("/products?populate=*");
+export async function getProducts(page = 1, pageSize = 4, search = "") {
 
-    return response.data.data.map(product => ({
-        id: product.id,
-        name: product.name,
-        documentId: product.documentId,
-        description:
-            product.description?.[0]?.children?.[0]?.text ?? "",
-        price: product.price,
-        stock: product.stock,
-        image: product.image
-            ? `${BASE_URL}${product.image.url}`
-            : null,
-    }));
+    let url =
+    `/products?populate=*` +
+    `&pagination[page]=${page}` +
+    `&pagination[pageSize]=${pageSize}`;
+
+    if (search) {
+        url +=
+            `&filters[name][$containsi]=${encodeURIComponent(search)}`;
+    }
+
+    const response = await api.get(url);
+
+    return {
+        products: response.data.data.map(product => ({
+            id: product.id,
+            documentId: product.documentId,
+            name: product.name,
+            description:
+                product.description?.[0]?.children?.[0]?.text ?? "",
+            price: product.price,
+            stock: product.stock,
+            image: product.image
+                ? `${BASE_URL}${product.image.url}`
+                : null,
+        })),
+
+        pagination: response.data.meta.pagination
+    };
+
 }
 
 export async function getProduct(documentId) {
