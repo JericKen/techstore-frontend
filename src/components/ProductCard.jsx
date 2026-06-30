@@ -1,7 +1,10 @@
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function ProductCard({ product }) {
+
+    const { addToCart } = useCart();    
 
     return (
 
@@ -35,9 +38,18 @@ export default function ProductCard({ product }) {
 
                     </div>
 
-                    <span className="btn">
+                    <span
+                        className="btn"
+                        onClick={(e) => {
 
-                        View Details
+                            e.preventDefault();
+
+                            addToCart(product);
+
+                        }}
+                    >
+
+                        Add to Cart
 
                     </span>
 
