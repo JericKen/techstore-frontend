@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../services/productService";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 export default function ProductDetails() {
 
@@ -39,9 +40,11 @@ export default function ProductDetails() {
     }, [id]);
 
     if (loading) {
-
-        return <h2>Loading product...</h2>;
-
+        return (
+            <div className="product-grid">
+                <ProductSkeleton />
+            </div>
+        );
     }
 
     if (error) {

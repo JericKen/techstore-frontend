@@ -2,7 +2,7 @@ import api from "../api/axios";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-export async function getProducts(page = 1, pageSize = 4, search = "") {
+export async function getProducts(page = 1, pageSize = 4, search = "", category = "", sort = "createdAt:desc") {
 
     let url =
     `/products?populate=*` +
@@ -13,6 +13,13 @@ export async function getProducts(page = 1, pageSize = 4, search = "") {
         url +=
             `&filters[name][$containsi]=${encodeURIComponent(search)}`;
     }
+
+    if (category) {
+        url +=
+            `&filters[category][documentId][$eq]=${category}`;
+    }
+
+    url += `&sort=${encodeURIComponent(sort)}`;
 
     const response = await api.get(url);
 
@@ -25,6 +32,13 @@ export async function getProducts(page = 1, pageSize = 4, search = "") {
                 product.description?.[0]?.children?.[0]?.text ?? "",
             price: product.price,
             stock: product.stock,
+            category: product.category
+                ? {
+                    id: product.category.id,
+                    documentId: product.category.documentId,
+                    name: product.category.name,
+                }
+                : null,
             image: product.image
                 ? `${BASE_URL}${product.image.url}`
                 : null,
@@ -51,6 +65,13 @@ export async function getProduct(documentId) {
             product.description?.[0]?.children?.[0]?.text ?? "",
         price: product.price,
         stock: product.stock,
+        category: product.category
+            ? {
+                id: product.category.id,
+                documentId: product.category.documentId,
+                name: product.category.name,
+            }
+            : null,
         image: product.image
             ? `${BASE_URL}${product.image.url}`
             : null,
