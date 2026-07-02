@@ -32,3 +32,23 @@ export async function register(
     return response.data;
 
 }
+
+export async function getMe() {
+
+    const token = localStorage.getItem("jwt");
+
+    const response = await api.get(
+
+        "/users/me",
+
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+    );
+
+    return response.data;
+
+}

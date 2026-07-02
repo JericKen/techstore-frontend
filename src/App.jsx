@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Checkout from "./pages/Checkout";
+import MyOrders from "./pages/MyOrders";
 
 function App() {
   return (
@@ -21,6 +23,24 @@ function App() {
 
                     <Cart />
 
+                </ProtectedRoute>
+            }
+        />
+        <Route
+            path="/checkout"
+            element={
+                <ProtectedRoute>
+
+                    <Checkout />
+
+                </ProtectedRoute>
+            }
+        />
+        <Route
+            path="/orders"
+            element={
+                <ProtectedRoute>
+                    <MyOrders />
                 </ProtectedRoute>
             }
         />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/authService";
+import { login, getMe } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
 import { useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
@@ -39,7 +39,9 @@ export default function Login() {
                 data.jwt
             );
 
-            setUser(data.user);
+            const me = await getMe();
+
+            setUser(me);
 
             navigate(from, {
                 replace: true

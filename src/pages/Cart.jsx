@@ -1,4 +1,5 @@
 import { useCart } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
 
@@ -105,6 +106,16 @@ export default function Cart() {
                 ₱{total.toFixed(2)}
             
             </h2>
+
+            <Link to="/checkout">
+
+                <button>
+
+                    Proceed to Checkout
+
+                </button>
+
+            </Link>
 
         </div>
 

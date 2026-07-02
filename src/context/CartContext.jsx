@@ -125,7 +125,8 @@ export function CartProvider({ children }) {
                 addToCart,
                 increaseQuantity,
                 decreaseQuantity,
-                removeItem
+                removeItem,
+                clearCart
             }}
         >
 
@@ -134,6 +135,14 @@ export function CartProvider({ children }) {
         </CartContext.Provider>
 
     );
+
+    
+
+    function clearCart() {
+
+        setCart([]);
+
+    }
 
 }
 
